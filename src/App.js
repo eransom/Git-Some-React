@@ -13,8 +13,7 @@ class App extends Component {
    html_url: "",
    bio: "",
    location: "",
-   hireable: "",
-   search: ""
+   hireable: ""
  }
 }
 
@@ -31,7 +30,8 @@ class App extends Component {
  }
 
  displayProfile () {
-   axios.get('https://api.github.com/users/eransom').then(response => this.setState({
+   let username = this.searchInput.value
+   axios.get(`https://api.github.com/users/${username}`).then(response => this.setState({
      avatar: response.data.avatar_url,
      login: response.data.login,
      html_url: response.data.html_url,
@@ -61,7 +61,7 @@ class App extends Component {
           <li className="location">{this.state.location}</li>
           <li className="hire">{this.state.hireable}</li>
         </ul>
-        <input type="search" placeholder="Type Username Here" ref={(input) => { this.searchInput = input }}
+        <input placeholder="Type Username Here" ref={(input) => { this.searchInput = input }}
       />
         <button onClick={this.displayProfile.bind(this)}>Click</button>
       </div>
